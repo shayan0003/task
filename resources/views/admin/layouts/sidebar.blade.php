@@ -9,9 +9,9 @@
 
 
 
-            <section class="sidebar-part-title">بخش محتوی</section>
+            <section class="sidebar-part-title">بخش محصولات</section>
             
-                <a href="#" class="sidebar-link">
+                <a href="{{ route('admin.product.category.index') }}" class="sidebar-link">
                     <i class="fas fa-bars"></i>
                     <span>دسته بندی</span>
                 </a>

@@ -8,7 +8,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}">خانه</a></li>
-            <li class="breadcrumb-item font-size-12"> <a href="#">دسته بندی</a>
+            <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.product.category.index') }}">دسته بندی</a>
             </li>
             <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد دسته بندی</li>
         </ol>
@@ -25,11 +25,11 @@
                 </section>
 
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-3">
-                    <a href="#" class="btn btn-info btn-sm">بازگشت</a>
+                    <a href="{{ route('admin.product.category.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
 
                 <section>
-                    <form action="#" method="POST"
+                    <form action="{{ route('admin.product.category.store') }}" method="POST"
                         enctype="multipart/form-data" id="form">
 
                         @csrf
@@ -53,18 +53,42 @@
 
                             </section>
 
-                            <section class="col-12 my-2">
+                            <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        {{-- <option value="0" @if (old('status') == 0) selected @endif>غیر فعال
+                                        <option value="0" @if (old('status') == 0) selected @endif>غیر فعال
                                         </option>
                                         <option value="1" @if (old('status') == 1) selected @endif>فعال
-                                        </option> --}}
+                                        </option>
                                     </select>
                                 </div>
                             </section>
 
+
+                            <section class="col-12 my-2">
+                                <div class="form-group">
+                                    <label for="parent_id">دسته والد</label>
+                                    <select name="parent_id" id="parent_id" class="form-control form-control-sm">
+                                        <option value="">دسته اصلی</option>
+                                        
+                                        @foreach ($categoryitems as $categoryitem)
+                                            <option value="{{ $categoryitem->id }}"
+                                                @if (old('parent_id') == $category->id) selected @endif>
+                                                {{ $categoryitem->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+                                @error('parent_id')
+                                    <span>
+                                        <strong class="text-danger p-1">
+                                            {{ $message }}
+                                        </strong>
+                                    </span>
+                                @enderror
+                            </section>
 
                             <section class="col-12 my-2">
                                 <div class="form-group">
@@ -97,7 +121,7 @@
 
 @section('script')
     {{-- ckEditor --}}
-    <script src="{{ asset('admin-assets/ckeditor/ckeditor.js') }}"></script> //این ادرس فایل مد نظر بر اساس پوشه بندی
+    <script src="{{ asset('admin-assets/ckeditor/ckeditor.js') }}"></script> 
 
 
     <script>

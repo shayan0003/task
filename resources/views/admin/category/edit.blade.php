@@ -29,7 +29,7 @@
                 </section>
 
                 <section>
-                    <form action="#" method="POST" enctype="multipart/form-data" id="form">
+                    <form action="{{ route('admin.product.category.update', $category->id) }}" method="POST" enctype="multipart/form-data" id="form">
 
 
                         @csrf
@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label for="name">نام دسته</label>
                                     <input type="text" name="name" id="name" class="form-control form-control-sm"
-                                        value=" {{ old('name') }} ">
+                                        value=" {{ old('name' , $category->name) }} ">
                                 </div>
 
                                 @error('name')
@@ -54,14 +54,38 @@
 
                             </section>
 
-                            <section class="col-12 my-2">
+                            <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        {{-- <option value="0" @if (old('status', $postCategory->status) == 0) selected @endif>غیر فعال</option>
-                                        <option value="1" @if (old('status', $postCategory->status) == 1) selected @endif>فعال</option> --}}
+                                        <option value="0" @if (old('status', $category->status) == 0) selected @endif>غیر فعال</option>
+                                        <option value="1" @if (old('status', $category->status) == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
+                            </section>
+
+                            <section class="col-12 my-2">
+                                <div class="form-group">
+                                    <label for="parent_id">دسته والد</label>
+                                    <select name="parent_id" id="parent_id" class="form-control form-control-sm">
+                                        <option value="">دسته اصلی</option>
+                                        
+                                        @foreach ($categoryitems as $categoryitem)
+                                            <option value="{{ $categoryitem->id }}"
+                                                @if (old('parent_id') == $categoryitem->id) selected @endif>
+                                                {{ $categoryitem->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+                                @error('parent_id')
+                                    <span>
+                                        <strong class="text-danger p-1">
+                                            {{ $message }}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
 
 
@@ -69,7 +93,7 @@
                                 <div class="form-group">
                                     <label for="description">توضیحات</label>
                                     <textarea name="description" id="description" class="form-control form-control-sm" rows="6"> 
-                                                                        {{ old('description') }}
+                                                                        {{ old('description' , $category->description) }}
                                     </textarea>
                                 </div>
 

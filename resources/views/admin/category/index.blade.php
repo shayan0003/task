@@ -31,9 +31,9 @@
 
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
 
-                        <a href="#" class="btn btn-info btn-sm">ایجاد دسته
-                            بندی</a>
-{{-- 
+                    <a href="{{ route('admin.product.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته
+                        بندی</a>
+                    {{-- 
                     <div class="max-width-16-rem">
                         <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
                     </div> --}}
@@ -46,54 +46,51 @@
                                 <th>#</th>
                                 <th>نام دسته بندی</th>
                                 <th> توضیحات</th>
+                                <th> دسته والد</th>
                                 <th> وضعیت</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($postCategories as $key => $postCategory)
+                            @foreach ($categories as $key => $category)
                                 <tr>
                                     <td> {{ $key += 1 }} </td>
-                                    <td> {{ $postCategory->name }} </td>
-                                    <td> {{ $postCategory->description }} </td>
-                                    <td> {{ $postCategory->slug }} </td>
-                                    <td> {{ $postCategory->tags }} </td>
+                                    <td> {{ $category->name }} </td>
+                                    <td> {{ $category->description }} </td>
+
+                                    <td>{{ $category->parent_id ? $category->parent->name : 'دسته اصلی' }}</td>
 
                                     <td>
                                         <label>
-                                            <input type="checkbox" id="{{ $postCategory->id }}"
-                                                onchange="changeStatus({{ $postCategory->id }})"
-                                                data-url="{{ route('admin.content.postCategory.status', $postCategory->id) }}"
-                                                @if ($postCategory->status === 1) checked @endif>
+                                            <input type="checkbox" id="{{ $category->id }}"
+                                                onchange="changeStatus({{ $category->id }})"
+                                                data-url="{{ route('admin.product.category.status', $category->id) }}"
+                                                @if ($category->status === 1) checked @endif>
                                         </label>
                                     </td>
 
 
                                     <td class="width-16-rem text-left">
-                                        @can('update-Category')
-                                            <a href="{{ route('admin.content.postCategory.edit', $postCategory->id) }}"
-                                                class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
-                                                ویرایش</a>
-                                        @endcan
+                                        <a href="{{ route('admin.product.category.edit', $category->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
+                                            ویرایش</a>
 
-                                        @can('delete-Category')
-                                            <form class="d-inline"
-                                                action="{{ route('admin.content.postCategory.destroy', $postCategory->id) }}"
-                                                method="post">
+                                        <form class="d-inline"
+                                            action="{{ route('admin.product.category.destroy', $category->id) }}"
+                                            method="post">
 
 
-                                                @csrf
-                                                @method('delete')
+                                            @csrf
+                                            @method('delete')
 
-                                                <button class="btn btn-danger btn-sm delete" type="submit"><i
-                                                        class="fa fa-trash-alt"></i>
-                                                    حذف</button>
+                                            <button class="btn btn-danger btn-sm delete" type="submit"><i
+                                                    class="fa fa-trash-alt"></i>
+                                                حذف</button>
 
-                                            </form>
-                                        @endcan
+                                        </form>
                                     </td>
                                 </tr>
-                            @endforeach --}}
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -102,7 +99,7 @@
                 <section class="col-12">
                     <section class="my-4 d=flex justify-content-center">
                         <nav style="margin-inline-start: 37%">
-                            {{-- {{ $postCategories->links('pagination::bootstrap-4') }} --}}
+                            {{ $categories->links('pagination::bootstrap-4') }}
                         </nav>
                     </section>
                 </section>
