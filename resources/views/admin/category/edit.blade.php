@@ -25,11 +25,12 @@
                 </section>
 
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-3">
-                    <a href="#" class="btn btn-info btn-sm">بازگشت</a>
+                    <a href="{{ route('admin.product.category.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
 
                 <section>
-                    <form action="{{ route('admin.product.category.update', $category->id) }}" method="POST" enctype="multipart/form-data" id="form">
+                    <form action="{{ route('admin.product.category.update', $category->id) }}" method="POST"
+                        enctype="multipart/form-data" id="form">
 
 
                         @csrf
@@ -41,7 +42,7 @@
                                 <div class="form-group">
                                     <label for="name">نام دسته</label>
                                     <input type="text" name="name" id="name" class="form-control form-control-sm"
-                                        value=" {{ old('name' , $category->name) }} ">
+                                        value=" {{ old('name', $category->name) }} ">
                                 </div>
 
                                 @error('name')
@@ -58,8 +59,10 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="0" @if (old('status', $category->status) == 0) selected @endif>غیر فعال</option>
-                                        <option value="1" @if (old('status', $category->status) == 1) selected @endif>فعال</option>
+                                        <option value="0" @if (old('status', $category->status) == 0) selected @endif>غیر فعال
+                                        </option>
+                                        <option value="1" @if (old('status', $category->status) == 1) selected @endif>فعال
+                                        </option>
                                     </select>
                                 </div>
                             </section>
@@ -69,12 +72,13 @@
                                     <label for="parent_id">دسته والد</label>
                                     <select name="parent_id" id="parent_id" class="form-control form-control-sm">
                                         <option value="">دسته اصلی</option>
-                                        
-                                        @foreach ($categoryitems as $categoryitem)
-                                            <option value="{{ $categoryitem->id }}"
-                                                @if (old('parent_id') == $categoryitem->id) selected @endif>
-                                                {{ $categoryitem->name }}</option>
+
+                                        @foreach ($categories as $categoryItem)
+                                            <option value="{{ $categoryItem->id }}"
+                                                @if (old('parent_id', $category->parent_id) == $categoryItem->id) selected @endif>
+                                                {{ $categoryItem->name }}</option>
                                         @endforeach
+
 
                                     </select>
                                 </div>
@@ -93,7 +97,7 @@
                                 <div class="form-group">
                                     <label for="description">توضیحات</label>
                                     <textarea name="description" id="description" class="form-control form-control-sm" rows="6"> 
-                                                                        {{ old('description' , $category->description) }}
+                                                                        {{ old('description', $category->description) }}
                                     </textarea>
                                 </div>
 
@@ -126,5 +130,4 @@
     <script>
         CKEDITOR.replace('description');
     </script>
-
 @endsection

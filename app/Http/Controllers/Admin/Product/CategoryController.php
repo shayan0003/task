@@ -27,8 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categoryitems = Category::where('parent_id', null)->get();
-        return view('admin.category.create' , compact('categoryitems'));
+        $categories = Category::where('parent_id', null)->get();
+        return view('admin.category.create' , compact('categories'));
     }
 
     /**
@@ -63,8 +63,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $categoryitems = Category::where('parent_id', null)->get();
-        return view('admin.category.edit' , compact('category' , 'categoryitems'));
+        $categories = Category::where('parent_id', null)->get();
+        return view('admin.category.edit' , compact('category' , 'categories'));
     }
 
     /**

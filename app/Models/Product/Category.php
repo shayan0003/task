@@ -14,5 +14,16 @@ class Category extends Model
     protected $fillable = ['name' , 'description' , 'status' , 'parent_id'];
 
 
-    
+     //رابطه داخلی فرزند با والد
+     public function parent()
+     {
+         return $this->belongsTo($this, 'parent_id')->with('parent');
+     }
+ 
+ 
+     //رابطه داخلی والد با فرزند 
+     public function children()
+     {
+         return $this->hasMany($this, 'parent_id')->with('children');
+     }
 }

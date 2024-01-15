@@ -72,10 +72,10 @@
                                     <select name="parent_id" id="parent_id" class="form-control form-control-sm">
                                         <option value="">دسته اصلی</option>
                                         
-                                        @foreach ($categoryitems as $categoryitem)
-                                            <option value="{{ $categoryitem->id }}"
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
                                                 @if (old('parent_id') == $category->id) selected @endif>
-                                                {{ $categoryitem->name }}</option>
+                                                {{ $category->name }}</option>
                                         @endforeach
 
                                     </select>

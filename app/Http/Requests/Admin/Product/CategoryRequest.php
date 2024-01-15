@@ -27,7 +27,7 @@ class CategoryRequest extends FormRequest
             'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي., ]+$/u',
             'description' => 'required|max:500|min:5|regex:/^[ا-یa-zA-Z0-9\-۰-۹ء-ي.,><\/;\n\r& ]+$/u',
             'status' => 'required|numeric|in:0,1',
-            'parent_id' => 'nullable|min:1|max:100000000|regex:/^[0-9]+$/u|exists:menus,id',
+            'parent_id' => 'nullable|min:1|max:100000000|regex:/^[0-9]+$/u|exists:categories,id',
         ];
     }
 }
