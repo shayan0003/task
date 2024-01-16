@@ -1,15 +1,16 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-    <title>پست ها</title>
+    <title> محصولات </title>
 @endsection
 
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}">خانه</a></li>
-            <li class="breadcrumb-item font-size-12"> <a href="#">بخش محتوی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page">پست ها</li>
+            <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.product.products.index') }}">بخش محصولات</a>
+            </li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> محصولات</li>
         </ol>
     </nav>
 
@@ -19,16 +20,12 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                        پست ها
+                        محصولات
                     </h5>
                 </section>
 
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                        <a href="{{ route('admin.content.post.create') }}" class="btn btn-info btn-sm">ایجاد خبر </a>
-
-                    {{-- <div class="max-width-16-rem">
-                        <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
-                    </div> --}}
+                    <a href="{{ route('admin.product.products.create') }}" class="btn btn-info btn-sm">ایجاد محصول </a>
                 </section>
 
                 <section class="table-responsive">
@@ -36,87 +33,77 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>عنوان خبر</th>
+                                <th>نام محصول</th>
                                 <th>نام دسته</th>
-                                <th>خلاصه خبر</th>
+                                <th>خلاصه محصول</th>
                                 <th>وضعیت</th>
-                                <th>سازنده</th>
+                                <th>قیمت</th>
                                 <th>تصویر</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
-                        
-                        {{-- <tbody>
-                            
-                            @foreach ($posts as $key => $post)
-                            <tr>
-                                
-                                <td>{{ $key += 1 }}</td>
-                                <td>{{ $post->title }}</td>
-                                <td>{{ $post->category->name }}</td>
-                                <td>{{ Str::limit($post->summery, 25) }}</td>
-                                    <td>{{ $post->slug }}</td>
-                                    <td>{{ $post->tags }}</td>
+
+                        <tbody>
+
+                            @foreach ($products as $key => $product)
+                                <tr>
+
+                                    <td>{{ $key += 1 }}</td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->category->name }}</td>
+                                    <td>{{ Str::limit($product->description, 25) }}</td>
 
 
                                     <td>
                                         <label>
-                                            <input type="checkbox" id="{{ $post->id }}"
-                                                onchange="changeStatus({{ $post->id }})"
-                                                data-url="{{ route('admin.content.post.status', $post->id) }}"
-                                                @if ($post->status === 1) checked @endif>
+                                            <input type="checkbox" id="{{ $product->id }}"
+                                                onchange="changeStatus({{ $product->id }})"
+                                                data-url="{{ route('admin.product.products.status', $product->id) }}"
+                                                @if ($product->status === 1) checked @endif>
                                         </label>
                                     </td>
 
-
-                                    <td>{{ $post->user->first_name . ' ' . $post->user->last_name }}</td>
+                                    <td>{{ $product->price }} تومان</td>
 
 
                                     <td>
-                                        <img src="{{ asset($post->image['indexArray'][$post->image['currentImage']]) }}"
-                                            alt="" width="120" height="100">
+                                        <img src="{{ asset($product->image) }}" alt="" width="120"
+                                            height="100">
                                     </td>
 
-
-
-
-                                    <td>{{ jalaliDate($post->published_at, 'H:i:s - Y/m/d') }}</td>
 
 
                                     <td class="width-16-rem text-left">
 
-                                        @can('update-Post')
-                                            <a href="{{ route('admin.content.post.edit', $post->id) }}"
-                                                class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
-                                                ویرایش</a>
-                                        @endcan
+                                        <a href="{{ route('admin.product.products.edit', $product->id) }}"
+                                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>
+                                            ویرایش</a>
 
-                                        @can('delete-Post')
-                                            <form class="d-inline"
-                                                action="{{ route('admin.content.post.destroy', $post->id) }}" method="post">
+                                        <form class="d-inline"
+                                            action="{{ route('admin.product.products.destroy', $product->id) }}"
+                                            method="post">
 
-                                                @csrf
-                                                @method('delete')
+                                            @csrf
+                                            @method('delete')
 
-                                                <button class="btn btn-danger btn-sm delete" type="submit"><i
-                                                        class="fa fa-trash-alt"></i>
-                                                    حذف</button>
+                                            <button class="btn btn-danger btn-sm delete" type="submit"><i
+                                                    class="fa fa-trash-alt"></i>
+                                                حذف</button>
 
-                                            </form>
-                                        @endcan
+                                        </form>
 
                                     </td>
                                 </tr>
                             @endforeach
 
-                        </tbody> --}}
+                        </tbody>
                     </table>
                 </section>
 
                 <section class="col-12">
                     <section class="my-4 d=flex justify-content-center">
                         <nav style="margin-inline-start: 37%">
-                            {{-- {{ $posts->links('pagination::bootstrap-4') }} --}}
+                            {{ $products->links('pagination::bootstrap-4') }}
                         </nav>
                     </section>
                 </section>

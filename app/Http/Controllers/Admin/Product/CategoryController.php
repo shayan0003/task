@@ -90,7 +90,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $result = $category->delete();
-        return redirect()->route('admin.product.category.index')->with('swal-success', 'منو شما با موفقیت حذف شد ');
+        return redirect()->route('admin.product.category.index')->with('swal-success', 'دسته بندی شما با موفقیت حذف شد ');
     }
 
 

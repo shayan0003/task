@@ -186,6 +186,7 @@ return [
         'answer'                => 'پاسخ',
         'url'                   => 'آدرس',
         'parent_id'             => 'منوی والد',
-        'national_code'             => ' کد ملی',
+        'national_code'         => ' کد ملی',
+        'price'                 => ' قیمت ',
     ],
 ];

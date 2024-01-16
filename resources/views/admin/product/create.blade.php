@@ -1,15 +1,16 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-    <title>ایجاد پست</title>
+    <title>ایجاد محصول</title>
 @endsection
 
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.home') }}">خانه</a></li>
-            <li class="breadcrumb-item font-size-12"> <a href="#">بخش محتوی</a></li>
-            <li class="breadcrumb-item font-size-12"> <a href="#">پست</a></li>
+            <li class="breadcrumb-item font-size-12"> <a href="{{ route('admin.product.products.index') }}">بخش محصولات</a>
+            </li>
+            <li class="breadcrumb-item font-size-12"> <a href="#">محصول</a></li>
             <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد پست</li>
         </ol>
     </nav>
@@ -25,11 +26,11 @@
                 </section>
 
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-3">
-                    <a href="#" class="btn btn-info btn-sm">بازگشت</a>
+                    <a href="{{ route('admin.product.products.index') }}" class="btn btn-info btn-sm">بازگشت</a>
                 </section>
 
                 <section>
-                    <form action="#" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('admin.product.products.store') }}" method="POST" enctype="multipart/form-data"
                         id="form">
                         <section class="row">
 
@@ -37,13 +38,13 @@
 
                             <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
-                                    <label for="title">عنوان خبر</label>
-                                    <input type="text" name="title" class="form-control form-control-sm"
-                                        value="{{ old('title') }}">
+                                    <label for="name">نام محصول</label>
+                                    <input type="text" name="name" class="form-control form-control-sm"
+                                        value="{{ old('name') }}">
 
                                 </div>
 
-                                @error('title')
+                                @error('name')
                                     <span>
                                         <strong class="text-danger p-1">
                                             {{ $message }}
@@ -58,11 +59,11 @@
                                     <select name="category_id" id="category_id" class="form-control form-control-sm">
                                         <option value="">دسته را انتخاب کنید</option>
 
-                                        {{-- @foreach ($postCtegories as $postCtegory)
-                                            <option value="{{ $postCtegory->id }}"
-                                                @if (old('category_id') == $postCtegory->id) selected @endif>{{ $postCtegory->name }}
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                @if (old('category_id') == $category->id) selected @endif>{{ $category->name }}
                                             </option>
-                                        @endforeach --}}
+                                        @endforeach
 
                                     </select>
                                 </div>
@@ -99,10 +100,10 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        {{-- <option value="0" @if (old('status') == 0) selected @endif>غیر فعال
+                                        <option value="0" @if (old('status') == 0) selected @endif>غیر فعال
                                         </option>
                                         <option value="1" @if (old('status') == 1) selected @endif>فعال
-                                        </option> --}}
+                                        </option>
                                     </select>
                                 </div>
 
@@ -115,33 +116,30 @@
                                 @enderror
                             </section>
 
-
-                            <section class="col-12 my-2">
+                            <section class="col-12">
                                 <div class="form-group">
-                                    <label for="summery">خلاصه خبر</label>
-                                    <textarea name="summery" id="summery" class="form-control form-control-sm" rows="6"> 
-                                                                        {{ old('summery') }}
-                                    </textarea>
+                                    <label for="">قیمت کالا</label>
+                                    <input type="text" name="price" value="{{ old('price') }}"
+                                        class="form-control form-control-sm">
                                 </div>
-
-                                @error('summery')
-                                    <span>
-                                        <strong class="text-danger p-1">
-                                            {{ $message }}
-                                        </strong>
-                                    </span>
-                                @enderror
+                                @error('price')
+                                <span>
+                                    <strong class="text-danger p-1">
+                                        {{ $message }}
+                                    </strong>
+                                </span>
+                            @enderror
                             </section>
 
                             <section class="col-12 my-2">
                                 <div class="form-group">
-                                    <label for="body">توضیحات</label>
-                                    <textarea name="body" id="body" class="form-control form-control-sm" rows="6"> 
-                                            {{ old('body') }}
+                                    <label for="description">درباره محصول</label>
+                                    <textarea name="description" id="description" class="form-control form-control-sm" rows="6"> 
+                                                                        {{ old('description') }}
                                     </textarea>
                                 </div>
 
-                                @error('body')
+                                @error('description')
                                     <span>
                                         <strong class="text-danger p-1">
                                             {{ $message }}
@@ -163,17 +161,12 @@
 @endsection
 
 @section('script')
-
-
-{{-- ckEditor --}}
-<script src="{{ asset('admin-assets/ckeditor/ckeditor.js') }}"></script>  //این ادرس فایل مد نظر بر اساس پوشه بندی
+    {{-- ckEditor --}}
+    <script src="{{ asset('admin-assets/ckeditor/ckeditor.js') }}"></script> //این ادرس فایل مد نظر بر اساس پوشه بندی
 
 
 
     <script>
-        CKEDITOR.replace('body');
-        CKEDITOR.replace('summery');
+        CKEDITOR.replace('description');
     </script>
-
-
 @endsection

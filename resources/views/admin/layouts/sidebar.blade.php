@@ -16,7 +16,7 @@
                     <span>دسته بندی</span>
                 </a>
 
-                <a href="#" class="sidebar-link">
+                <a href="{{ route('admin.product.products.index') }}" class="sidebar-link">
                     <i class="fas fa-bars"></i>
                     <span> محصولات </span>
                 </a>
