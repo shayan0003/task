@@ -1,0 +1,6 @@
+DB_DATABASE=task
+DB_USERNAME=root
+DB_PASSWORD=
+
+colation = utf8mb4_persian_ci
+
