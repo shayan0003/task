@@ -101,12 +101,12 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">قیمت کالا</label>
-                                    <input type="text" name="price" value="{{ old('price', $product->price) }}"
+                                    <input type="text" name="price" value="{{ old('price', (int) $product->price) }}"
                                         class="form-control form-control-sm">
                                 </div>
                                 @error('price')
-                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                        <strong>
+                                    <span>
+                                        <strong class="text-danger p-2">
                                             {{ $message }}
                                         </strong>
                                     </span>

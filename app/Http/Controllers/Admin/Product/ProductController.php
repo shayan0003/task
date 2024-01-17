@@ -84,8 +84,6 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        // dd($request);
-        // dd($inputs);
         $inputs = $request->all();
 
         if ($request->hasFile('image')) {

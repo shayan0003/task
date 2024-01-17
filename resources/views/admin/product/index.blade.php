@@ -35,7 +35,7 @@
                                 <th>#</th>
                                 <th>نام محصول</th>
                                 <th>نام دسته</th>
-                                <th>خلاصه محصول</th>
+                                <th>درباره محصول</th>
                                 <th>وضعیت</th>
                                 <th>قیمت</th>
                                 <th>تصویر</th>
@@ -51,7 +51,7 @@
                                     <td>{{ $key += 1 }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->category->name }}</td>
-                                    <td>{{ Str::limit($product->description, 25) }}</td>
+                                    <td>{!! Str::limit($product->description, 25) !!}</td>
 
 
                                     <td>
@@ -63,7 +63,7 @@
                                         </label>
                                     </td>
 
-                                    <td>{{ $product->price }} تومان</td>
+                                    <td>{{ number_format($product->price) }} تومان</td>
 
 
                                     <td>
