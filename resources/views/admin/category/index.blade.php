@@ -56,7 +56,7 @@
                                 <tr>
                                     <td> {{ $key += 1 }} </td>
                                     <td> {{ $category->name }} </td>
-                                    <td> {{ $category->description }} </td>
+                                    <td> {!! $category->description !!} </td>
 
                                     <td>{{ $category->parent_id ? $category->parent->name : 'دسته اصلی' }}</td>
 
