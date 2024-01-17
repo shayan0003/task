@@ -9,8 +9,17 @@
 </head>
 
 <body>
+    <section class="top-header mt-3">
+        <section class="container-xxl">
+            <section class="py-3">
 
-    
+               @include('main.layouts.search')
+
+            </section>
+        </section>
+    </section>
+
+
     <!-- start body -->
     <section class="">
         <section id="main-body-two-col" class="container-xxl body-container">
@@ -21,6 +30,7 @@
             </section>
         </section>
     </section>
+
     <!-- end body -->
 
 

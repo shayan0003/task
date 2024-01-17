@@ -66,15 +66,17 @@ Route::prefix('/tasks_admin')->group(function () {
 
 
 
+
+/*
+|--------------------------------------------------------------------------
+|                              🕸  Main  🕸
+|--------------------------------------------------------------------------
+*/
+
   //Products
   Route::prefix('/products')->controller(HomeController::class)->group(function () {
 
-    Route::get('/', 'index')->name('products.index');
-    // Route::get('/create', 'create')->name('products.create');
-    // Route::post('/store', 'store')->name('products.store');
-    // Route::get('/edit/{product}', 'edit')->name('products.edit');
-    // Route::put('/update/{product}', 'update')->name('products.update');
-    // Route::delete('/destroy/{product}', 'destroy')->name('products.destroy');
-    // Route::get('/status/{product}', 'status')->name('products.status');
+    Route::get('/{category?}', 'index')->name('products.index');
+    
 
 });

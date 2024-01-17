@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('created_at', 'desc')->Paginate(5);
+        $categories = Category::orderBy('created_at', 'desc')->Paginate(2);
         return view('admin.category.index' , compact('categories'));
     }
 
